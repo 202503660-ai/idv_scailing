@@ -1925,6 +1925,101 @@ def main() -> None:
         else:
             st.info("사이드바에서 'OLS 회귀선 + 95% 신뢰구간'을 켜면 회귀 가정 진단(LINE · OLS vs HC3)이 표시됩니다.")
 
+        with st.container(border=True, key="card_sec5_limits"):
+            st.markdown("<div class='panel-title'>핵심 결론 및 해석의 한계</div>", unsafe_allow_html=True)
+
+            open_sub = view[view["_access"] == "Open"]
+            closed_sub = view[view["_access"] == "Closed"]
+            o_ap_txt = (
+                f"{100.0 * open_sub['Active Parameters'].notna().mean():.1f}%"
+                if len(open_sub) > 0
+                else "-"
+            )
+            c_ap_txt = (
+                f"{100.0 * closed_sub['Active Parameters'].notna().mean():.1f}%"
+                if len(closed_sub) > 0
+                else "-"
+            )
+            if reg_dir_flop.get("ok"):
+                bp_p_txt = format_p(reg_dir_flop["line"].get("bp_p"))
+                hc3_z_txt = (
+                    f"{reg_dir_flop['t_hc3']:.2f}"
+                    if pd.notna(reg_dir_flop.get("t_hc3"))
+                    else "-"
+                )
+                hc3_p_txt = format_p(reg_dir_flop.get("p_hc3"))
+                flop_summary = (
+                    f"Training compute (FLOP) → {bench_choice}: "
+                    f"R²={reg_dir_flop['r2']:.3f}, 10배당 {reg_dir_flop['b1']:+.3f} "
+                    f"(n={reg_dir_flop['n']}, HC3 z={hc3_z_txt}, {hc3_p_txt})"
+                )
+            else:
+                bp_p_txt = "p = -"
+                flop_summary = f"Training compute (FLOP) → {bench_choice}: 현재 필터 표본 부족"
+
+            if reg_multi_2.get("ok"):
+                ma_vif_val = max(reg_multi_2["vifs"].values()) if reg_multi_2.get("vifs") else float("nan")
+                ma_summary = (
+                    f"Model A (2변수, n={reg_multi_2['n']}): "
+                    f"Adj. R²={reg_multi_2['adj_r2']:.3f}, Max VIF={_fmt_vif(ma_vif_val)}"
+                )
+            else:
+                ma_summary = "Model A (2변수): 현재 필터 표본 부족"
+
+            if reg_multi_3.get("ok"):
+                mb_vif_val = max(reg_multi_3["vifs"].values()) if reg_multi_3.get("vifs") else float("nan")
+                mb_vif_txt = _fmt_vif(mb_vif_val)
+            else:
+                mb_vif_txt = "표본 부족"
+
+            limit_rows = [
+                (
+                    "실증 결론",
+                    T.DATA_OPEN,
+                    f"{flop_summary} · {ma_summary}",
+                ),
+                (
+                    "관측 자료 한계",
+                    T.DATA_REG_LINE,
+                    "Kaplan(2020)의 통제 실험(cross-entropy loss)과 달리 기업·아키텍처·사후학습이 혼재된 관측 자료의 "
+                    "다운스트림 정답률(0~1) 실증이며, 회귀선은 관측 범위 내부만 표시합니다(미래 외삽 금지).",
+                ),
+                (
+                    "비공개 결측 편향",
+                    T.DATA_CLOSED,
+                    f"최신 Closed 모델의 규모 정보 비공개로 결측이 집중됩니다 "
+                    f"(Active Parameters 공개율 Open {o_ap_txt} vs Closed {c_ap_txt}, 결측 임의 대체 없음).",
+                ),
+                (
+                    "다중공선성",
+                    "#B84D00",
+                    f"C ≈ 6ND 구조 때문에 Model B(3변수)에 FLOP을 동시 투입하면 Max VIF={mb_vif_txt}로 "
+                    "개별 계수가 불안정해지므로, 2변수 Model A와 단일 FLOP 모형을 분리해 해석합니다.",
+                ),
+                (
+                    "포화 · 이분산",
+                    "#475569",
+                    f"벤치마크 점수가 0.25~1.00 구간에 갇혀 비선형 포화(RESET)와 등분산 경고(FLOP BP {bp_p_txt})가 "
+                    "나타나므로, LINE 진단과 HC3 강건 표준오차를 함께 확인합니다.",
+                ),
+            ]
+            limit_html = "".join(
+                f"<tr>"
+                f"<td><span class='col-guide-role'>"
+                f"<span class='sunburst-swatch' style='background:{clr};'></span>"
+                f"{html.escape(tag)}</span></td>"
+                f"<td>{html.escape(desc)}</td>"
+                f"</tr>"
+                for tag, clr, desc in limit_rows
+            )
+            st.markdown(
+                "<table class='col-guide-table'>"
+                "<thead><tr><th>구분</th><th>데이터 근거 및 해석 주의사항</th></tr></thead>"
+                f"<tbody>{limit_html}</tbody>"
+                "</table>",
+                unsafe_allow_html=True,
+            )
+
     # ── Bottom-Only Data Source Link & Aggregation Standard ──────────────────
     st.divider()
     repo_url = html.escape(SOURCE_REPO_URL, quote=True)

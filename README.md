@@ -23,7 +23,7 @@
 | **03 · Open / Closed** | 연도별 Open/Closed 모델 수(Bar) 및 전체 비율(Pie) + 분포 요약 |
 | **04 · 스케일링 법칙** | 4대 규모 축(`Training compute (FLOP)`, `Active Parameters`, `Model size (parameters)`, `Dataset size`) vs `MMLU/BBH` 산점도 + 개별 OLS 비교표 |
 | **05 · 다중 회귀** | `Model A (2변수: Active Parameters + Dataset size)` vs `Model B (3변수: + FLOP)` 실측값 vs 예측값 플롯 · 수정 $R^2$ · VIF 다중공선성 진단 |
-| **06 · 회귀 진단** | 7개 모형 × 3종 잔차 플롯(`Residual vs Fitted`, `Normal Q-Q`, `Residuals over Date`) · LINE 4대 가정 검정(`RESET`, `DW`, `Shapiro`, `BP`) · `OLS vs HC3` 강건 표준오차 비교 |
+| **06 · 회귀 진단** | 7개 모형 × 3종 잔차 플롯(`Residual vs Fitted`, `Normal Q-Q`, `Residuals over Date`) · LINE 4대 가정 검정(`RESET`, `DW`, `Shapiro`, `BP`) · `OLS vs HC3` 강건 표준오차 비교 · **핵심 결론 및 해석의 한계** |
 
 > 모든 탭의 사이드바 위젯(`Benchmark`, `Date`, `Open/Closed`, `Plot Summary 표시`, `OLS + 95% CI`, `95% PI`, `HC3`)을 바꾸면 상단 KPI·차트·회귀 계수·요약 카드가 실시간으로 연동됩니다.
 
