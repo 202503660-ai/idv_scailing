@@ -19,7 +19,7 @@
 | 탭 | 주요 시각화 및 분석 내용 |
 | --- | --- |
 | **01 · 원자료** | 24개 컬럼 5대 역할 선버스트 계층 휠(클릭 시 `Open 유효 / Closed 유효 / 결측` 확대) · 컬럼 유형 분류 기준 토글 · 유효 관측률 막대(`50%` 기준선) · Open/Closed 공개율 비교 · 원자료 표 & CSV 다운로드 |
-| **02 · 시간 추이** | 출시 시점별 벤치마크(`MMLU`/`BBH`) 및 규모(`Training compute (FLOP)`, `Active Parameters`, `Dataset size`) 추이 + 단일 OLS·95% CI/PI |
+| **02 · 시간 추이** | 출시 시점별 벤치마크(`MMLU`/`BBH`) 및 4대 규모(`Training compute (FLOP)`, `Active Parameters`, `Model size (parameters)`, `Dataset size`) 추이 + 단일 OLS·95% CI/PI |
 | **03 · Open / Closed** | 연도별 Open/Closed 모델 수(Bar) 및 전체 비율(Pie) + 분포 요약 |
 | **04 · 스케일링 법칙** | 4대 규모 축(`Training compute (FLOP)`, `Active Parameters`, `Model size (parameters)`, `Dataset size`) vs `MMLU/BBH` 산점도 + 개별 OLS 비교표 |
 | **05 · 다중 회귀** | `Model A (2변수: Active Parameters + Dataset size)` vs `Model B (3변수: + FLOP)` 실측값 vs 예측값 플롯 · 수정 $R^2$ · VIF 다중공선성 진단 |

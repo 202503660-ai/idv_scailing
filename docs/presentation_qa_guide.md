@@ -35,7 +35,7 @@
 | 탭 | 메인 플롯 & 컨트롤 | 우측 `PLOT SUMMARY` (사이드바 ON/OFF) | 핵심 수치 (MMLU 기본) |
 |---|---|---|---|
 | **01 · 원자료** *(30초)* | 3버튼 전환(`컬럼 계층 휠 (Sunburst)` · `유효 관측률 (Bar)` · `Open / Closed 공개율 (Bar)`) + 원자료 테이블·CSV 다운로드 | 원자료 구조(24컬럼·5그룹·규모 유효율·다중회귀 교집합) / Open·Closed 공개율 비교 | 24컬럼 5역할 휠(클릭 시 Open/Closed/결측 확대), 벤치마크 50%↑는 `MMLU 74.8% · BBH 54.2%` 2종뿐, `Active Params` 공개율 `Open 85.9% vs Closed 41.5%` |
-| **02 · 시간 추이** *(45초)* | 1개 카드 통합 4버튼 (`MMLU/BBH` · `FLOP` · `Active Parameters` · `Dataset size`) | 선택한 지표의 분포(IQR·중앙값)·연간 추세·$R^2$ | `MMLU` `+0.098/yr` (`R²=0.513`, `n=98`), `FLOP` 연 `5.06배` (`R²=0.588`, `n=94`), `Dataset` 연 `1.96배` (`R²=0.789`, `n=56`) |
+| **02 · 시간 추이** *(45초)* | 1개 카드 통합 5버튼 (`MMLU/BBH` · `FLOP` · `Active Parameters` · `Model size (parameters)` · `Dataset size`) | 선택한 지표의 분포(IQR·중앙값)·연간 추세·$R^2$ | `MMLU` `+0.098/yr` (`R²=0.513`, `n=98`), `FLOP` 연 `5.06배` (`R²=0.588`, `n=94`), `Dataset` 연 `1.96배` (`R²=0.789`, `n=56`) |
 | **03 · Open / Closed** *(25초)* | 연도별 모델 수(Bar) / 전체 비율(Pie) | `OPEN / CLOSED` 전용 분포(전체 수·기간·최다 출시 연도) | 총 `131종`: `Open 78 (60%)` vs `Closed 53 (40%)`, 최다 출시 `2024 (49개)` |
 | **04 · 스케일링 법칙** *(55초)* | `FLOP` · `Active Parameters` · `Model size (parameters)` · `Dataset size` 4축 vs `MMLU/BBH` 산점도 + **4종 개별 OLS 비교표** | 선택한 축의 유효 쌍 표본·기울기(10x)·`p`·$R^2$/RSE | `FLOP` **`R²=0.741`**(`n=82`), `Active Params` `0.504`(`n=77`), `Model size` `0.495`(`n=55`), `Dataset` `0.386`(`n=51`) |
 | **05 · 다중 회귀** *(45초)* | `Model A (2변수)` ↔ `Model B (3변수)` **실측값 vs 예측값($y$ vs $\hat{y}$)** 플롯 + 비교 배지 + 선택 모형 계수·VIF 표 | `MULTI OLS` 전용 지표(`n`, 변수 수, $R^2$, 수정 $R^2$, RSE, $F$, **최대 VIF 배지**) | `Model A` `Adj. R²=0.583 · VIF 1.34` vs `Model B` `Adj. R²=0.576 · VIF 80.51 (!)` (`n=51`) |

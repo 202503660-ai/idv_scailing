@@ -1014,6 +1014,7 @@ def main() -> None:
     reg_time_perf = fit_simple_ols(view, "year_frac", bench_choice, use_hc3=use_hc3)
     reg_time_flop = fit_simple_ols(view, "year_frac", "log10_flop", use_hc3=use_hc3)
     reg_time_param = fit_simple_ols(view, "year_frac", "log10_params", use_hc3=use_hc3)
+    reg_time_total = fit_simple_ols(view, "year_frac", "log10_total_params", use_hc3=use_hc3)
     reg_time_data = fit_simple_ols(view, "year_frac", "log10_dataset", use_hc3=use_hc3)
 
     reg_dir_flop = fit_simple_ols(view, "log10_flop", bench_choice, use_hc3=use_hc3)
@@ -1067,7 +1068,8 @@ def main() -> None:
     )
 
     scale_label_to_key = {
-        SCALE_META[k]["raw_col"]: k for k in ["log10_flop", "log10_params", "log10_dataset"]
+        SCALE_META[k]["raw_col"]: k
+        for k in ["log10_flop", "log10_params", "log10_total_params", "log10_dataset"]
     }
     scale_options = list(scale_label_to_key.keys())
 
@@ -1310,7 +1312,7 @@ def main() -> None:
                 key="raw_csv_download",
             )
 
-    # ── TAB 2: Unified Time-Trend Toggle (Benchmark + 3 Scales) ──────────────
+    # ── TAB 2: Unified Time-Trend Toggle (Benchmark + 4 Scales) ──────────────
     with tab1:
         y_note = (
             "※ 버튼으로 벤치마크(0~1)와 규모 지표(log10)를 전환합니다. "
@@ -1324,6 +1326,7 @@ def main() -> None:
         scale_reg_time_map = {
             "log10_flop": reg_time_flop,
             "log10_params": reg_time_param,
+            "log10_total_params": reg_time_total,
             "log10_dataset": reg_time_data,
         }
         t1_options = [bench_choice] + scale_options
