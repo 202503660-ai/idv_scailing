@@ -1,0 +1,23 @@
+# Python environments & caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Secrets & local files
+.env
+.env.*
+.streamlit/secrets.toml
+secrets.toml
+
+# Course reference materials (never upload to public repo)
+참고자료/
+
+# OS & editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+*.tmp
